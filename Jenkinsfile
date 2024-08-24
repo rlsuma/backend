@@ -39,14 +39,11 @@ pipeline {
             echo 'I will always say Hello again!'
             deleteDir()
         }
-        success{
+        success { 
             echo 'I will run when pipeline is success'
-
         }
-        failure{
+        failure { 
             echo 'I will run when pipeline is failure'
-
         }
-        
     }
 }
