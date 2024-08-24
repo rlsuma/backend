@@ -35,7 +35,7 @@ pipeline {
         stage('build'){
             steps{
                 sh"""
-                zip -q -r backend-${appversion}.zip */ -x Jenkinsfile -x backend-${appversion}.zip
+                zip -q -r backend-${appVersion}.zip */ -x Jenkinsfile -x backend-${appVersion}.zip
                 ls -ltr
                 """
             }
