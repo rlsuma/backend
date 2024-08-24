@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-         stage('Install Dependencies') {
+        stage('Install Dependencies') {
             steps {
                sh """
                 npm install
@@ -32,11 +32,19 @@ pipeline {
                """
             }
         }
+        stage('build'){
+            steps{
+                sh"""
+                zip -r backend-${appversion}.zip */ -x Jenkinsfile -x backend-${appversion}.zip
+                ls -ltr
+                """
+            }
+        }
     }
         post { 
         always { 
             echo 'I will always say Hello again!'
-            // deleteDir()
+            deleteDir()
         }
         success{
             echo 'I will run when pipeline is success'
