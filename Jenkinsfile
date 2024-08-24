@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-      stage('Install Dependencies') {
+         stage('Install Dependencies') {
             steps {
                sh """
                 npm install
@@ -33,17 +33,20 @@ pipeline {
             }
         }
     
-    post { 
-        always { 
+        post { 
+          always { 
             echo 'I will always say Hello again!'
             deleteDir()
-        }
-        success { 
+            }
+           success{
             echo 'I will run when pipeline is success'
-        }
-        failure { 
+
+            }
+            failure{
             echo 'I will run when pipeline is failure'
+
+            }
         }
+        
     }
-}
 }
