@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies') {
+      stage('Install Dependencies') {
             steps {
                sh """
                 npm install
@@ -32,7 +32,6 @@ pipeline {
                """
             }
         }
-          
     
     post { 
         always { 
@@ -46,4 +45,5 @@ pipeline {
             echo 'I will run when pipeline is failure'
         }
     }
+}
 }
