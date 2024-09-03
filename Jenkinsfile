@@ -10,6 +10,7 @@ pipeline {
     }
     environment{
         def appversion = ''  //variable declartion
+        nexusUrl = 'nexus.rlsu.shop:8081'
     }
    
     
@@ -41,20 +42,45 @@ pipeline {
             }
         }
     }
-        post { 
-        always { 
-            echo 'I will always say Hello again!'
-            deleteDir()
-        }
-        success{
-            echo 'I will run when pipeline is success'
+    stage('nexus Artifact upload'){
+            steps{
+                script{
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: "${nexusUrl}",
+                        groupId: 'com.expense',
+                        version: "${appVersion}"
+                        repository:  "backend",
+                        credentialsId: 'nexus-auth',
+                        artifacts: [
+                            [artifactId: "backend",
+                            classifier: '',
+                            file: "backend-" + "${appVersion}" + '.zip',
+                            type: 'zip']
+                        ]
+                    )
 
+                }
+               
+            }
         }
-        failure{
-            echo 'I will run when pipeline is failure'
-
-        }
-        
     }
-        
+        post { 
+            always { 
+                echo 'I will always say Hello again!'
+                deleteDir()
+            }
+            success{
+                echo 'I will run when pipeline is success'
+
+            }
+            failure{
+                echo 'I will run when pipeline is failure'
+
+            }
+            
+        }
+
+            
 }
