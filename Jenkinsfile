@@ -7,9 +7,9 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    // parameters{
-    //     booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
-    // }
+    parameters{
+        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
+    }
     environment{
         def appVersion = '' //variable declaration
         nexusUrl = 'nexus.rlsu.shop:8081'
@@ -108,7 +108,7 @@ pipeline {
                 }
             }
         } 
-        /* stage('Deploy'){
+        stage('Deploy'){
             when{
                 expression{
                     params.deploy
@@ -122,7 +122,7 @@ pipeline {
                     build job: 'backend-deploy', parameters: params, wait: false
                 }
             }
-        } */
+        } 
     }
     post { 
         always { 
