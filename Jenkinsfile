@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'AGENT-2'
+        label 'AGENT-1'
     }
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -12,7 +12,7 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.rlsu.shop:8081'
+        nexusUrl = 'nexus.daws78s.online:8081'
         // region = "us-east-1"
         // account_id = "315069654700"
     }
@@ -87,7 +87,7 @@ pipeline {
             }
         } */
 
-        stage('Nexus Artifact Upload'){
+         stage('Nexus Artifact Upload'){
             steps{
                 script{
                     nexusArtifactUploader(
