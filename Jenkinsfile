@@ -12,9 +12,9 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.:8081'
-        region = "us-east-1"
-        account_id = "315069654700"
+        nexusUrl = 'nexus.rlsu.shop:8081'
+        // region = "us-east-1"
+        // account_id = "315069654700"
     }
     stages {
         stage('read the version'){
@@ -43,28 +43,28 @@ pipeline {
                 """
             }
         }
-        stage('Docker build'){
-            steps{
-                sh """
-                    aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
+        // stage('Docker build'){
+        //     steps{
+        //         sh """
+        //             aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
 
-                    docker build -t ${account_id}.dkr.ecr.${region}.amazonaws.com/expense-backend:${appVersion} .
+        //             docker build -t ${account_id}.dkr.ecr.${region}.amazonaws.com/expense-backend:${appVersion} .
 
-                    docker push ${account_id}.dkr.ecr.${region}.amazonaws.com/expense-backend:${appVersion}
-                """
-            }
-        }
+        //             docker push ${account_id}.dkr.ecr.${region}.amazonaws.com/expense-backend:${appVersion}
+        //         """
+        //     }
+        // }
 
-        stage('Deploy'){
-            steps{
-                sh """
-                    aws eks update-kubeconfig --region us-east-1 --name expense-dev
-                    cd helm
-                    sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
-                    helm upgrade backend .
-                """
-            }
-        }
+        // stage('Deploy'){
+        //     steps{
+        //         sh """
+        //             aws eks update-kubeconfig --region us-east-1 --name expense-dev
+        //             cd helm
+        //             sed -i 's/IMAGE_VERSION/${appVersion}/g' values.yaml
+        //             helm upgrade backend .
+        //         """
+        //     }
+        // }
         
         /* stage('Sonar Scan'){
             environment {
@@ -87,7 +87,7 @@ pipeline {
             }
         } */
 
-        /* stage('Nexus Artifact Upload'){
+        stage('Nexus Artifact Upload'){
             steps{
                 script{
                     nexusArtifactUploader(
@@ -107,22 +107,22 @@ pipeline {
                     )
                 }
             }
-        } */
-        /* stage('Deploy'){
-            when{
-                expression{
-                    params.deploy
-                }
-            }
-            steps{
-                script{
-                    def params = [
-                        string(name: 'appVersion', value: "${appVersion}")
-                    ]
-                    build job: 'backend-deploy', parameters: params, wait: false
-                }
-            }
-        } */
+        } 
+        // stage('Deploy'){
+        //     when{
+        //         expression{
+        //             params.deploy
+        //         }
+        //     }
+        //     steps{
+        //         script{
+        //             def params = [
+        //                 string(name: 'appVersion', value: "${appVersion}")
+        //             ]
+        //             build job: 'backend-deploy', parameters: params, wait: false
+        //         }
+        //     }
+        // } 
     }
     post { 
         always { 
