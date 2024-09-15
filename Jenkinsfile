@@ -108,22 +108,22 @@ pipeline {
                 }
             }
         } 
-    //     stage('Deploy'){
-    //         when{
-    //             expression{
-    //                 params.deploy
-    //             }
-    //         }
-    //         steps{
-    //             script{
-    //                 def params = [
-    //                     string(name: 'appVersion', value: "${appVersion}")
-    //                 ]
-    //                 build job: 'backend-deploy', parameters: params, wait: false
-    //             }
-    //         }
-    //     } 
-    // }
+        stage('Deploy'){
+            when{
+                expression{
+                    params.deploy
+                }
+            }
+            steps{
+                script{
+                    def params = [
+                        string(name: 'appVersion', value: "${appVersion}")
+                    ]
+                    build job: 'backend-deploy', parameters: params, wait: false
+                }
+            }
+        } 
+    }
     post { 
         always { 
             echo 'I will always say Hello again!'
@@ -136,5 +136,4 @@ pipeline {
             echo 'I will run when pipeline is failure'
         }
     }
-}
 }
