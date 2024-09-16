@@ -58,7 +58,8 @@ pipeline {
                 }
             }
         }
-       stage('Deploy') {
+        
+        stage('Deploy') {
     steps {
         script {
             try {
@@ -69,6 +70,7 @@ pipeline {
         }
     }
 }
+    }
     post {
         always {
             echo 'I will always say Hello again!'
@@ -81,5 +83,4 @@ pipeline {
             echo 'I will run when pipeline is failure'
         }
     }
-}
 }
