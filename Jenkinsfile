@@ -41,7 +41,7 @@ pipeline {
             steps{
                 script{
                     nexusArtifactUploader(
-                          nexusVersion: 'nexus3',
+                        nexusVersion: 'nexus3',
                             protocol: 'http',
                             nexusUrl: 'http://nexus.rlsu:8081',
                             groupId: 'com.expense',
@@ -49,13 +49,13 @@ pipeline {
                             version: '1.2.0',
                             repository: 'backend',
                             credentialsId: 'nexus-credentials', // Ensure this ID is correct
-                                artifacts: [
-                                    [artifactId: 'backend',
-                                    classifier: '',
-                                    file: 'backend-1.2.0.zip',
-                                    type: 'zip']
+                            artifacts: [
+                                [artifactId: 'backend',
+                                classifier: '',
+                                file: 'backend-1.2.0.zip',
+                                type: 'zip']
                                 ]
-                            )
+                    )
                 }
             }
         } 
