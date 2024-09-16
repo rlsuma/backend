@@ -58,17 +58,17 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-    steps {
-        script {
-            try {
-                build job: 'folder/backend-deploy' // Include folder path if applicable
-            } catch (Exception e) {
-                echo "Failed to trigger job: ${e.message}"
-            }
+        stage ('Deploy') {
+        steps {
+            script{
+                def params =[
+                    string(name:'appVersion', value: "${appVersion}")
+                ]
+            build job: 'backend-deploy', parameters: params, wait: false
+               }
         }
-    }
 }
+    }
     post {
         always {
             echo 'I will always say Hello again!'
@@ -80,6 +80,5 @@ pipeline {
         failure {
             echo 'I will run when pipeline is failure'
         }
-    }
     }
 }
