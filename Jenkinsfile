@@ -9,7 +9,7 @@ pipeline {
     }
      environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.rlsu.shop:8081'
+        nexusUrl = 'nexus.rlsu:8081'
     }
     stages {
         stage('read the version'){
@@ -58,17 +58,15 @@ pipeline {
                 }
             }
         }
-        
-        stage('Deploy') {
-    steps {
-        script {
-            try {
-                build job: 'folder/backend-deploy' // Include folder path if applicable
-            } catch (Exception e) {
-                echo "Failed to trigger job: ${e.message}"
-            }
+        stage ('Deploy') {
+        steps {
+            script{
+                def params =[
+                    string(name:'appVersion', value: "${appVersion}")
+                ]
+            build job: 'backend-deploy', parameters: params, wait: false
+               }
         }
-    }
 }
     }
     post {
