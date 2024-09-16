@@ -49,7 +49,7 @@ pipeline {
                         repository: "backend",
                         credentialsId: 'nexus-auth',
                         artifacts: [
-                            [artifactId: "backend",
+                            [artifactId: "backend" ,
                             classifier: '',
                             file: "backend-" + "${appVersion}" + '.zip',
                             type: 'zip']
@@ -68,8 +68,7 @@ pipeline {
             }
         }
     }
-
-
+}
     post {
         always {
             echo 'I will always say Hello again!'
@@ -81,5 +80,6 @@ pipeline {
         failure {
             echo 'I will run when pipeline is failure'
         }
+    }
     }
 }
