@@ -41,25 +41,26 @@ pipeline {
             steps{
                 script{
                     nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: "${nexusUrl}",
-                        groupId: 'com.expense',
-                        version: "${appVersion}",
-                        repository: "backend",
-                        credentialsId: 'nexus-auth',
-                        artifacts: [
-                            [artifactId: "backend" ,
-                            classifier: '',
-                            file: "backend-" + "${appVersion}" + '.zip',
-                            type: 'zip']
-                        ]
-                    )
+                          nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: 'http://nexus.rlsu:8081',
+                            groupId: 'com.expense',
+                            artifactId: 'backend',
+                            version: '1.2.0',
+                            repository: 'backend',
+                            credentialsId: 'nexus-credentials', // Ensure this ID is correct
+                                artifacts: [
+                                    [artifactId: 'backend',
+                                    classifier: '',
+                                    file: 'backend-1.2.0.zip',
+                                    type: 'zip']
+                                ]
+                            )
                 }
             }
         } 
 
-        stage ('Deploy') {
+        stage ('Deploy') 
         steps {
             script{
                 def params =[
