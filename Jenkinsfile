@@ -58,17 +58,19 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy') {
-        steps {
-            script{
-                def params =[
-                    string(name:'appVersion', value: "${appVersion}")
-                ]
-            build job: 'backend-deploy', parameters: params, wait: false
-               }
+         stage('Deploy') {
+            steps {
+                script {
+                    try {
+                        build job: 'backend-deploy'
+                    } catch (Exception e) {
+                        echo "Failed to trigger backend-deploy job: ${e.message}"
+                    }
+                }
+            }
         }
-}
     }
+
     post {
         always {
             echo 'I will always say Hello again!'
