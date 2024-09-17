@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'AGENT-2'
+        label 'AGENT-1'
     }
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -9,7 +9,7 @@ pipeline {
     }
      environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.rlsu.shop:8081'
+        nexusUrl = 'nexus.viswaws.online:8081'
     }
     stages {
         stage('read the version'){
