@@ -9,7 +9,7 @@ pipeline {
     }
      environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.rlsu:8081'
+        nexusUrl = 'nexus.rlsu.shop:8081'
     }
     stages {
         stage('read the version'){
